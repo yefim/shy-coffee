@@ -30,7 +30,8 @@ function App() {
 
       const { data, error } = await supabase
         .from('Cafes')
-        .select();
+        .select()
+        .order('created_at', { ascending: false });
       if (error == null && !!data) {
         const newCafes = data.map((row) => ({
           id: row.id,
