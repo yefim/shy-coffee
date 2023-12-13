@@ -63,6 +63,10 @@ html {
   margin-left: auto;
 }
 
+.cafe {
+  border: 1px solid #444;
+}
+
 @keyframes overlayShow {
   from {
     opacity: 0;
