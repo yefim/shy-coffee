@@ -134,9 +134,9 @@ function getPlaceholder(): string {
 function Cafe({ cafe }: { cafe: Cafe }) {
   return (
     <div className="cafe">
-      <p>{cafe.name}</p>
-      <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>{cafe.address}</a>
+      <h2>{cafe.name}</h2>
       {cafe.notes && <p>{cafe.notes}</p>}
+      <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>{cafe.address}</a>
     </div>
   );
 }
