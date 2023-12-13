@@ -69,6 +69,12 @@ html {
   margin-left: auto;
 }
 
+.add-a-spot input:focus,
+.add-a-spot textarea:focus,
+.add-a-spot button:focus {
+  animation: glow 3s infinite;
+}
+
 .cafe {
   border: 1px solid #444;
 }
@@ -93,3 +99,14 @@ html {
   }
 }
 
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.7);
+  }
+}
