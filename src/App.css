@@ -50,6 +50,7 @@ html {
 .add-a-spot input,
 .add-a-spot textarea,
 .add-a-spot button {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   display: block;
   font-size: 20px;
 }
