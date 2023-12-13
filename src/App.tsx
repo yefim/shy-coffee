@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 
 import { createClient } from '@supabase/supabase-js'
+import * as Dialog from '@radix-ui/react-dialog';
+import { sample } from 'lodash';
 
 const supabaseUrl = 'https://nlmvouryycplqrhwjnxe.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sbXZvdXJ5eWNwbHFyaHdqbnhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzNTU4MDcsImV4cCI6MjAxNzkzMTgwN30.DNwk34GuKgDUicfJ3pjYsP_abyaFbscPWU37eARvj4U';
@@ -19,7 +21,10 @@ function App() {
   const [cafes, setCafes] = useState<Cafe[] | 'loading'>('loading');
   const [name, setName] = useState<string>('');
   const [address, setAddress] = useState<string>('');
+  const [notes, setNotes] = useState<string>('');
+  const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<'idle' | 'pending'>('idle');
+  const placeholder = useRef<string>(getPlaceholder());
 
   useEffect(() => {
     async function loadCafes() {
@@ -50,12 +55,15 @@ function App() {
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    if (!name.trim() || !address.trim()) return;
+
     setStatus('pending');
 
     console.log('Adding cafe...');
-    const cafe: Pick<Cafe, 'name' | 'address'> = {
-      name,
-      address,
+    const cafe: Omit<Cafe, 'id' | 'created_at'> = {
+      name: name.trim(),
+      address: address.trim(),
+      notes: notes.trim() || null,
     };
 
     const { error, data } = await supabase
@@ -73,6 +81,7 @@ function App() {
 
       console.log(newCafe);
       setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
+      setOpen(false);
       setName('');
       setAddress('');
       setStatus('idle');
@@ -81,15 +90,28 @@ function App() {
 
   return (
     <>
-      <form method="post" onSubmit={handleSubmit}>
-        <label>Name
-          <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        </label>
-        <label>Address
-          <input type="text" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-        </label>
-        <button disabled={status === 'pending'} type="submit">{status === 'idle' ? 'Add' : 'Adding...'}</button>
-      </form>
+      <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Dialog.Trigger asChild>
+          <button type="button">Add a spot</button>
+        </Dialog.Trigger>
+        <Dialog.Portal>
+          <Dialog.Overlay className="DialogOverlay" />
+          <Dialog.Content className="DialogContent">
+            <form autoComplete="off" className="add-a-spot" method="post" onSubmit={handleSubmit}>
+              <label>Name
+                <input type="text" autoComplete="off" placeholder="Coffee Deluxe" value={name} onChange={(e) => setName(e.target.value)} />
+              </label>
+              <label>Address
+                <input type="text" autoComplete="off" placeholder="123 Bean St" value={address} onChange={(e) => setAddress(e.target.value)} />
+              </label>
+              <label>Notes
+                <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)}>{notes}</textarea>
+              </label>
+              <button disabled={status === 'pending'} type="submit">{status === 'idle' ? 'Add' : 'Adding...'}</button>
+            </form>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
       {
         cafes !== 'loading' && cafes.length > 0 && (
           cafes.map((cafe, i) => <Cafe key={i} cafe={cafe} />)
@@ -97,6 +119,16 @@ function App() {
       }
     </>
   )
+}
+
+function getPlaceholder(): string {
+  return sample([
+    'The coffee here really took my breath away...',
+    'Immaculate vibes all around...',
+    'Loved every second...',
+    '☕️❤️...',
+    'Divine pastries, need I say otherwise??'
+  ]);
 }
 
 function Cafe({ cafe }: { cafe: Cafe }) {
