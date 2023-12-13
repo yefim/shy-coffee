@@ -85,6 +85,7 @@ function App() {
         setOpen(false);
         setName('');
         setAddress('');
+        setNotes('');
         setStatus('idle');
       }, 400);
     }
