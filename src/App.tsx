@@ -27,6 +27,14 @@ function App() {
   const [id, setId] = useState<number>();
   const placeholder = useRef<string>(getPlaceholder());
 
+  function clearMe() {
+    setName('');
+    setAddress('');
+    setNotes('');
+    setId(undefined);
+    setStatus('idle');
+  }
+
   useEffect(() => {
     async function loadCafes() {
       console.log('Fetching cafes...');
@@ -85,11 +93,7 @@ function App() {
         setTimeout(() => {
           setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
           setOpen(false);
-          setName('');
-          setAddress('');
-          setNotes('');
-          setId(undefined);
-          setStatus('idle');
+          clearMe();
         }, 400);
       }
     } else {
@@ -119,11 +123,7 @@ function App() {
             return clone;
           });
           setOpen(false);
-          setName('');
-          setAddress('');
-          setNotes('');
-          setId(undefined);
-          setStatus('idle');
+          clearMe();
         }, 400);
       }
     }
@@ -135,20 +135,20 @@ function App() {
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
-          <button className="add-a-spot-btn" type="button">Add a spot</button>
+          <button onClick={clearMe} className="add-a-spot-btn" type="button">Add a spot</button>
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="DialogOverlay" />
           <Dialog.Content className="DialogContent">
             <h2>{editing == null ? 'Add a spot' : `Edit ${editing.name}`}</h2>
             <form autoComplete="off" className="add-a-spot" method="post" onSubmit={handleSubmit}>
-              <label>Name
+              <label><span className="emoji">📇</span> Name
                 <input type="text" autoComplete="off" placeholder="Coffee Deluxe" value={name} onChange={(e) => setName(e.target.value)} />
               </label>
-              <label>Address
+              <label><span className="emoji">📍</span> Address
                 <input type="text" autoComplete="off" placeholder="123 Bean St" value={address} onChange={(e) => setAddress(e.target.value)} />
               </label>
-              <label>Notes (optional)
+              <label><span className="emoji">📝</span> Notes (optional)
                 <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)} value={notes} />
               </label>
               <div className="action-buttons">

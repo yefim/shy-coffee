@@ -77,6 +77,12 @@ html {
   animation: glow 3s infinite;
 }
 
+.emoji {
+  display: inline-block;
+  font-size: 16px;
+  vertical-align: baseline;
+}
+
 .cafe {
   border: 1px solid #444;
 }
