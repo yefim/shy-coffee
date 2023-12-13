@@ -92,7 +92,7 @@ function App() {
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
-          <button type="button">Add a spot</button>
+          <button className="add-a-spot-btn" type="button">Add a spot</button>
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="DialogOverlay" />

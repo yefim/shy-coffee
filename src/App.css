@@ -41,6 +41,11 @@ html {
   outline: none;
 }
 
+.add-a-spot-btn {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
 .add-a-spot label,
 .add-a-spot input,
 .add-a-spot textarea,
