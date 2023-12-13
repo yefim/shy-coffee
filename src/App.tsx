@@ -100,6 +100,7 @@ function App() {
         <Dialog.Portal>
           <Dialog.Overlay className="DialogOverlay" />
           <Dialog.Content className="DialogContent">
+            <h2>Add a spot</h2>
             <form autoComplete="off" className="add-a-spot" method="post" onSubmit={handleSubmit}>
               <label>Name
                 <input type="text" autoComplete="off" placeholder="Coffee Deluxe" value={name} onChange={(e) => setName(e.target.value)} />
