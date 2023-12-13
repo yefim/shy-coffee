@@ -24,6 +24,7 @@ function App() {
   const [notes, setNotes] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<'idle' | 'pending'>('idle');
+  const [id, setId] = useState<number>();
   const placeholder = useRef<string>(getPlaceholder());
 
   useEffect(() => {
@@ -59,37 +60,76 @@ function App() {
 
     setStatus('pending');
 
-    console.log('Adding cafe...');
     const cafe: Omit<Cafe, 'id' | 'created_at'> = {
       name: name.trim(),
       address: address.trim(),
       notes: notes.trim() || null,
     };
 
-    const { error, data } = await supabase
-      .from('Cafes')
-      .insert(cafe)
-      .select();
+    if (id == null) {
+      console.log('Adding cafe...');
+      const { error, data } = await supabase
+        .from('Cafes')
+        .insert(cafe)
+        .select();
 
-    if (error == null && !!data) {
-      const newCafe: Cafe = {
-        id: data[0].id,
-        name: data[0].name,
-        address: data[0].address,
-        notes: data[0].notes,
-      };
+      if (error == null && !!data) {
+        const newCafe: Cafe = {
+          id: data[0].id,
+          name: data[0].name,
+          address: data[0].address,
+          notes: data[0].notes,
+        };
 
-      console.log(newCafe);
-      setTimeout(() => {
-        setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
-        setOpen(false);
-        setName('');
-        setAddress('');
-        setNotes('');
-        setStatus('idle');
-      }, 400);
+        console.log(newCafe);
+        setTimeout(() => {
+          setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
+          setOpen(false);
+          setName('');
+          setAddress('');
+          setNotes('');
+          setId(undefined);
+          setStatus('idle');
+        }, 400);
+      }
+    } else {
+      console.log('Updating cafe...');
+      const { error, data } = await supabase
+        .from('Cafes')
+        .update(cafe)
+        .eq('id', id)
+        .select();
+
+      if (error == null && !!data) {
+        const updatedCafe: Cafe = {
+          id: data[0].id,
+          name: data[0].name,
+          address: data[0].address,
+          notes: data[0].notes,
+        };
+
+        console.log(updatedCafe);
+        setTimeout(() => {
+          setCafes((prevCafes) => {
+            if (prevCafes === 'loading') return [updatedCafe];
+
+            const index = prevCafes.findIndex((c) => c.id === updatedCafe.id);
+            const clone = [...prevCafes];
+            clone[index] = updatedCafe;
+            return clone;
+          });
+          setOpen(false);
+          setName('');
+          setAddress('');
+          setNotes('');
+          setId(undefined);
+          setStatus('idle');
+        }, 400);
+      }
     }
   }
+
+  const editing = id == null || cafes === 'loading' ? undefined : cafes.find((c) => c.id === id);
 
   return (
     <>
@@ -100,7 +140,7 @@ function App() {
         <Dialog.Portal>
           <Dialog.Overlay className="DialogOverlay" />
           <Dialog.Content className="DialogContent">
-            <h2>Add a spot</h2>
+            <h2>{editing == null ? 'Add a spot' : `Edit ${editing.name}`}</h2>
             <form autoComplete="off" className="add-a-spot" method="post" onSubmit={handleSubmit}>
               <label>Name
                 <input type="text" autoComplete="off" placeholder="Coffee Deluxe" value={name} onChange={(e) => setName(e.target.value)} />
@@ -109,11 +149,11 @@ function App() {
                 <input type="text" autoComplete="off" placeholder="123 Bean St" value={address} onChange={(e) => setAddress(e.target.value)} />
               </label>
               <label>Notes (optional)
-                <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)}>{notes}</textarea>
+                <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)} value={notes} />
               </label>
               <div className="action-buttons">
                 <button type="button" onClick={() => setOpen(false)}>Cancel</button>
-                <button disabled={status === 'pending'} type="submit">{status === 'idle' ? 'Add' : 'Adding...'}</button>
+                <button disabled={status === 'pending'} type="submit">{status === 'idle' ? id == null ? 'Add' : 'Update' : id == null ? 'Adding...' : 'Updating...'}</button>
               </div>
             </form>
           </Dialog.Content>
@@ -121,7 +161,17 @@ function App() {
       </Dialog.Root>
       {
         cafes !== 'loading' && cafes.length > 0 && (
-          cafes.map((cafe, i) => <Cafe key={i} cafe={cafe} />)
+          cafes.map((cafe, i) => (
+            <Cafe key={i}
+              cafe={cafe}
+              onClick={() => {
+                setName(cafe.name);
+                setAddress(cafe.address);
+                setNotes(cafe.notes || '');
+                setId(cafe.id);
+                setOpen(true);
+              }}
+            />))
         )
       }
     </>
@@ -138,12 +188,13 @@ function getPlaceholder(): string {
   ]);
 }
 
-function Cafe({ cafe }: { cafe: Cafe }) {
+function Cafe({ cafe, onClick }: { cafe: Cafe, onClick: () => void }) {
   return (
     <div className="cafe">
       <h2>{cafe.name}</h2>
       {cafe.notes && <p>{cafe.notes}</p>}
       <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>{cafe.address}</a>
+      <button onClick={onClick}>Edit</button>
     </div>
   );
 }
