@@ -107,7 +107,7 @@ function App() {
               <label>Address
                 <input type="text" autoComplete="off" placeholder="123 Bean St" value={address} onChange={(e) => setAddress(e.target.value)} />
               </label>
-              <label>Notes
+              <label>Notes (optional)
                 <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)}>{notes}</textarea>
               </label>
               <button disabled={status === 'pending'} type="submit">{status === 'idle' ? 'Add' : 'Adding...'}</button>
