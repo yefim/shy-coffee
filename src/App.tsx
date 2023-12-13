@@ -111,7 +111,10 @@ function App() {
               <label>Notes (optional)
                 <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)}>{notes}</textarea>
               </label>
-              <button disabled={status === 'pending'} type="submit">{status === 'idle' ? 'Add' : 'Adding...'}</button>
+              <div className="action-buttons">
+                <button type="button" onClick={() => setOpen(false)}>Cancel</button>
+                <button disabled={status === 'pending'} type="submit">{status === 'idle' ? 'Add' : 'Adding...'}</button>
+              </div>
             </form>
           </Dialog.Content>
         </Dialog.Portal>

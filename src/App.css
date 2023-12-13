@@ -65,8 +65,10 @@ html {
   margin-bottom: 12px;
 }
 
-.add-a-spot button {
-  margin-left: auto;
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
 }
 
 .add-a-spot input:focus,
