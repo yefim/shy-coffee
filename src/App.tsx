@@ -80,11 +80,13 @@ function App() {
       };
 
       console.log(newCafe);
-      setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
-      setOpen(false);
-      setName('');
-      setAddress('');
-      setStatus('idle');
+      setTimeout(() => {
+        setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
+        setOpen(false);
+        setName('');
+        setAddress('');
+        setStatus('idle');
+      }, 400);
     }
   }
 
