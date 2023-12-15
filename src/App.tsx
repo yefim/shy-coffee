@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js'
 import * as Dialog from '@radix-ui/react-dialog';
 import { sample } from 'lodash';
 import { LoadingOutlined } from '@ant-design/icons';
+import { flushSync } from 'react-dom';
 
 const supabaseUrl = 'https://nlmvouryycplqrhwjnxe.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sbXZvdXJ5eWNwbHFyaHdqbnhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzNTU4MDcsImV4cCI6MjAxNzkzMTgwN30.DNwk34GuKgDUicfJ3pjYsP_abyaFbscPWU37eARvj4U';
@@ -43,7 +44,7 @@ function App() {
       const { data, error } = await supabase
         .from('Cafes')
         .select()
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: true });
       if (error == null && !!data) {
         const newCafes = data.map((row) => ({
           id: row.id,
@@ -53,9 +54,13 @@ function App() {
         }));
         console.log('Got cafes', newCafes);
 
-        setCafes((prevCafes) =>
-          prevCafes === 'loading' ? newCafes : [...prevCafes, ...newCafes]
-        );
+        flushSync(() => {
+          setCafes((prevCafes) =>
+            prevCafes === 'loading' ? newCafes : [...prevCafes, ...newCafes]
+          );
+        });
+
+        window.scrollTo(0, document.body.scrollHeight);
       }
     }
     loadCafes();
@@ -92,9 +97,13 @@ function App() {
 
         console.log(newCafe);
         setTimeout(() => {
-          setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [newCafe, ...prevCafes]);
-          setOpen(false);
-          clearMe();
+          flushSync(() => {
+            setCafes((prevCafes) => prevCafes === 'loading' ? [newCafe] : [...prevCafes, newCafe]);
+            setOpen(false);
+            clearMe();
+          });
+
+          window.scrollTo(0, document.body.scrollHeight);
         }, 400);
       }
     } else {
@@ -135,21 +144,23 @@ function App() {
   return (
     <>
       {cafes === 'loading' && (<LoadingOutlined />)}
-      {
-        cafes !== 'loading' && cafes.length > 0 && (
-          cafes.map((cafe, i) => (
-            <Cafe key={i}
-              cafe={cafe}
-              onClick={() => {
-                setName(cafe.name);
-                setAddress(cafe.address);
-                setNotes(cafe.notes || '');
-                setId(cafe.id);
-                setOpen(true);
-              }}
-            />))
-        )
-      }
+      <div className="cafes">
+        {
+          cafes !== 'loading' && cafes.length > 0 && (
+            cafes.map((cafe, i) => (
+              <Cafe key={i}
+                cafe={cafe}
+                onClick={() => {
+                  setName(cafe.name);
+                  setAddress(cafe.address);
+                  setNotes(cafe.notes || '');
+                  setId(cafe.id);
+                  setOpen(true);
+                }}
+              />))
+          )
+        }
+      </div>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
           <button onClick={clearMe} className="add-a-spot-btn" type="button">Add a spot</button>

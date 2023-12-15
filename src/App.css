@@ -49,6 +49,10 @@ html {
   right: 12px;
 }
 
+.cafes {
+  margin-bottom: 60px;
+}
+
 .add-a-spot label,
 .add-a-spot input,
 .add-a-spot textarea,
