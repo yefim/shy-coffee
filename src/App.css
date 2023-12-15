@@ -43,7 +43,10 @@ html {
 
 .add-a-spot-btn {
   font-size: 20px;
-  margin-bottom: 12px;
+  position: fixed;
+  bottom: 20px;
+  left: 12px;
+  right: 12px;
 }
 
 .add-a-spot label,

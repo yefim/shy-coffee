@@ -5,6 +5,7 @@ import './App.css'
 import { createClient } from '@supabase/supabase-js'
 import * as Dialog from '@radix-ui/react-dialog';
 import { sample } from 'lodash';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const supabaseUrl = 'https://nlmvouryycplqrhwjnxe.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sbXZvdXJ5eWNwbHFyaHdqbnhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzNTU4MDcsImV4cCI6MjAxNzkzMTgwN30.DNwk34GuKgDUicfJ3pjYsP_abyaFbscPWU37eARvj4U';
@@ -133,6 +134,22 @@ function App() {
 
   return (
     <>
+      {cafes === 'loading' && (<LoadingOutlined />)}
+      {
+        cafes !== 'loading' && cafes.length > 0 && (
+          cafes.map((cafe, i) => (
+            <Cafe key={i}
+              cafe={cafe}
+              onClick={() => {
+                setName(cafe.name);
+                setAddress(cafe.address);
+                setNotes(cafe.notes || '');
+                setId(cafe.id);
+                setOpen(true);
+              }}
+            />))
+        )
+      }
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
           <button onClick={clearMe} className="add-a-spot-btn" type="button">Add a spot</button>
@@ -159,21 +176,6 @@ function App() {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-      {
-        cafes !== 'loading' && cafes.length > 0 && (
-          cafes.map((cafe, i) => (
-            <Cafe key={i}
-              cafe={cafe}
-              onClick={() => {
-                setName(cafe.name);
-                setAddress(cafe.address);
-                setNotes(cafe.notes || '');
-                setId(cafe.id);
-                setOpen(true);
-              }}
-            />))
-        )
-      }
     </>
   )
 }
