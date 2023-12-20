@@ -205,12 +205,14 @@ function getPlaceholder(): string {
 }
 
 function Cafe({ cafe, onClick }: { cafe: Cafe, onClick: () => void }) {
+  const prettyAddress = (cafe.address.split(',').at(0) || '').replace(/^\d+/, '').trim();
+
   return (
     <div className="cafe">
       <button className="edit-btn" type="button" onClick={onClick}>✍️</button>
       <h2>{cafe.name}</h2>
       {cafe.notes && <div className="notes"><span>📝</span><p>{cafe.notes}</p></div>}
-      <a className="location-link" target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>📍 Take me there</a>
+      <a className="location-link" target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>📍 Take me there{prettyAddress && ` (${prettyAddress})`}</a>
     </div>
   );
 }

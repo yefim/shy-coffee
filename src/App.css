@@ -98,7 +98,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
   margin-bottom: 60px;
 }
 
@@ -128,7 +128,7 @@ body {
   font-family: 'Dancing Script', cursive;
 
   position: relative;
-  width: 120px;
+  width: 140px;
   height: 40px;
   background-color: #C9ADA7;
   color: #412C28;
@@ -140,7 +140,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 120px;
+  width: 140px;
   height: 40px;
   border: 1px solid #412C28;
   border-radius: 50%;
@@ -223,10 +223,11 @@ body {
 
 .cafe .location-link {
   font-family: 'Libre Baskerville', serif;
+  font-size: 14px;
   text-decoration: none;
   text-align: left;
   color: #79B473;
-  padding: 0 20px 12px 20px;
+  padding: 0 0 12px 20px;
 }
 
 @keyframes overlayShow {
