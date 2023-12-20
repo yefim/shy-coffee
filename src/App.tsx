@@ -17,6 +17,7 @@ interface Cafe {
   name: string;
   address: string;
   notes: string | null;
+  createdAt: Date;
 }
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           name: row.name,
           address: row.address,
           notes: row.notes,
+          createdAt: new Date(row.created_at),
         }));
         console.log('Got cafes', newCafes);
 
@@ -74,7 +76,7 @@ function App() {
 
     setStatus('pending');
 
-    const cafe: Omit<Cafe, 'id' | 'created_at'> = {
+    const cafe: Omit<Cafe, 'id' | 'createdAt'> = {
       name: name.trim(),
       address: address.trim(),
       notes: notes.trim() || null,
@@ -93,6 +95,7 @@ function App() {
           name: data[0].name,
           address: data[0].address,
           notes: data[0].notes,
+          createdAt: new Date(data[0].created_at),
         };
 
         console.log(newCafe);
@@ -120,6 +123,7 @@ function App() {
           name: data[0].name,
           address: data[0].address,
           notes: data[0].notes,
+          createdAt: new Date(data[0].created_at),
         };
 
         console.log(updatedCafe);
@@ -182,6 +186,7 @@ function App() {
               </label>
               <label><span className="emoji">📝</span> Notes (optional)
                 <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)} value={notes} />
+                {!!editing && (<span className="timestamp">Added {editing.createdAt.toLocaleDateString()}</span>)}
               </label>
               <div className="action-buttons">
                 <button disabled={status === 'pending'} type="submit">{status === 'idle' ? id == null ? 'Add' : 'Update' : id == null ? 'Adding...' : 'Updating...'}</button>

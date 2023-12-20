@@ -151,6 +151,12 @@ body {
   margin-bottom: 12px;
 }
 
+.add-a-spot .timestamp {
+  color: #79B473;
+  font-size: 10px;
+  display: block;
+}
+
 .action-buttons {
   display: flex;
   gap: 8px;
