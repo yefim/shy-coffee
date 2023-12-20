@@ -178,6 +178,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  animation: fade-in 200ms ease-out;
 }
 
 .cafe .edit-btn {
@@ -259,5 +260,16 @@ body {
   }
   100% {
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.7);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translate3d(0, 20%, 0);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 }
