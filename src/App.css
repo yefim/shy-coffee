@@ -8,6 +8,20 @@ html {
   box-sizing: inherit;
 }
 
+html,
+body {
+  background: #FBFBFB;
+}
+
+.heading-1 {
+  font-family: 'Dancing Script', cursive;
+  color: #70A37F;
+  font-size: 32px;
+  max-width: 480px;
+  margin: 0 auto 20px auto;
+  text-wrap: balance;
+}
+
 
 #root {
   max-width: 1280px;
@@ -41,15 +55,46 @@ html {
   outline: none;
 }
 
+.DialogContent h2 {
+  margin: 0;
+  padding: 0;
+}
+
 .add-a-spot-btn {
-  font-size: 20px;
+  font-size: 24px;
+  font-family: 'Dancing Script', cursive;
   position: fixed;
   bottom: 20px;
   left: 12px;
   right: 12px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 450px;
+
+  width: 150px;
+  height: 50px;
+  background-color: #C9ADA7;
+  color: #412C28;
+  border-radius: 50%;
+}
+
+.add-a-spot-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 50px;
+    border: 1px solid #412C28;
+    border-radius: 50%;
+    transform: rotate(-9.41deg);
 }
 
 .cafes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 60px;
 }
 
@@ -91,7 +136,58 @@ html {
 }
 
 .cafe {
-  border: 1px solid #444;
+  background: #7F6C6B;
+  border-radius: 8px;
+  width: 300px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cafe .edit-btn {
+  color: #FBFBFB;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.cafe h2 {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  color: #70A37F;
+  font-size: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.cafe .notes {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+}
+
+.cafe .notes p {
+  font-family: 'Libre Baskerville', serif;
+  color: #FBFBFB;
+  text-align: left;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.cafe .location-link {
+  font-family: 'Libre Baskerville', serif;
+  text-decoration: none;
+  text-align: left;
+  color: #79B473;
 }
 
 @keyframes overlayShow {

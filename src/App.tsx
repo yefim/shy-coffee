@@ -5,7 +5,7 @@ import './App.css'
 import { createClient } from '@supabase/supabase-js'
 import * as Dialog from '@radix-ui/react-dialog';
 import { sample } from 'lodash';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, EditOutlined, PushpinFilled } from '@ant-design/icons';
 import { flushSync } from 'react-dom';
 
 const supabaseUrl = 'https://nlmvouryycplqrhwjnxe.supabase.co'
@@ -143,24 +143,28 @@ function App() {
 
   return (
     <>
-      {cafes === 'loading' && (<LoadingOutlined />)}
-      <div className="cafes">
-        {
-          cafes !== 'loading' && cafes.length > 0 && (
-            cafes.map((cafe, i) => (
-              <Cafe key={i}
-                cafe={cafe}
-                onClick={() => {
-                  setName(cafe.name);
-                  setAddress(cafe.address);
-                  setNotes(cafe.notes || '');
-                  setId(cafe.id);
-                  setOpen(true);
-                }}
-              />))
-          )
-        }
-      </div>
+      {cafes === 'loading' ? <LoadingOutlined /> : (
+        <>
+          <h1 className="heading-1">Shy.coffee is a place for Shy to collect all sorts of coffee recommendations</h1>
+          <div className="cafes">
+            {
+              cafes.length > 0 && (
+                cafes.map((cafe, i) => (
+                  <Cafe key={i}
+                    cafe={cafe}
+                    onClick={() => {
+                      setName(cafe.name);
+                      setAddress(cafe.address);
+                      setNotes(cafe.notes || '');
+                      setId(cafe.id);
+                      setOpen(true);
+                    }}
+                  />))
+              )
+            }
+          </div>
+        </>
+      )}
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
           <button onClick={clearMe} className="add-a-spot-btn" type="button">Add a spot</button>
@@ -204,10 +208,10 @@ function getPlaceholder(): string {
 function Cafe({ cafe, onClick }: { cafe: Cafe, onClick: () => void }) {
   return (
     <div className="cafe">
+      <button className="edit-btn" type="button" onClick={onClick}><EditOutlined /></button>
       <h2>{cafe.name}</h2>
-      {cafe.notes && <p>{cafe.notes}</p>}
-      <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>{cafe.address}</a>
-      <button onClick={onClick}>Edit</button>
+      {cafe.notes && <div className="notes"><span>📝</span><p>{cafe.notes}</p></div>}
+      <a className="location-link" target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>📍 Take me there</a>
     </div>
   );
 }
