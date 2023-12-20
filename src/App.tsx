@@ -5,7 +5,7 @@ import './App.css'
 import { createClient } from '@supabase/supabase-js'
 import * as Dialog from '@radix-ui/react-dialog';
 import { sample } from 'lodash';
-import { LoadingOutlined, EditOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { flushSync } from 'react-dom';
 
 const supabaseUrl = 'https://nlmvouryycplqrhwjnxe.supabase.co'
@@ -184,7 +184,6 @@ function App() {
                 <textarea rows={3} autoComplete="off" placeholder={placeholder.current || ''} onChange={(e) => setNotes(e.target.value)} value={notes} />
               </label>
               <div className="action-buttons">
-                <button type="button" onClick={() => setOpen(false)}>Cancel</button>
                 <button disabled={status === 'pending'} type="submit">{status === 'idle' ? id == null ? 'Add' : 'Update' : id == null ? 'Adding...' : 'Updating...'}</button>
               </div>
             </form>

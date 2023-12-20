@@ -38,14 +38,14 @@ body {
 }
 
 .DialogContent {
-  background-color: white;
+  background-color: #FBFBFB;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   position: fixed;
-  top: 0;
+  top: 20px;
   left: 50%;
   transform: translate(-50%, 0);
   width: 100vw;
-  max-width: 450px;
+  max-width: 340px;
   max-height: 85vh;
   padding: 25px;
   /*animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1); */
@@ -56,6 +56,10 @@ body {
 }
 
 .DialogContent h2 {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
+  color: #70A37F;
   margin: 0;
   padding: 0;
 }
@@ -79,15 +83,15 @@ body {
 }
 
 .add-a-spot-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 150px;
-    height: 50px;
-    border: 1px solid #412C28;
-    border-radius: 50%;
-    transform: rotate(-9.41deg);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 50px;
+  border: 1px solid #412C28;
+  border-radius: 50%;
+  transform: rotate(-9.41deg);
 }
 
 .cafes {
@@ -102,15 +106,45 @@ body {
 .add-a-spot input,
 .add-a-spot textarea,
 .add-a-spot button {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Libre Baskerville', serif;
+  color: #412C28;
   display: block;
   font-size: 20px;
 }
 
 .add-a-spot input,
 .add-a-spot textarea {
+  color: #7F6C6B;
   width: 100%;
   font-size: 16px;
+}
+
+.add-a-spot button {
+  border: 0;
+  background: none;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  font-family: 'Dancing Script', cursive;
+
+  position: relative;
+  width: 120px;
+  height: 40px;
+  background-color: #C9ADA7;
+  color: #412C28;
+  border-radius: 50%;
+}
+
+.add-a-spot button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 40px;
+  border: 1px solid #412C28;
+  border-radius: 50%;
+  transform: rotate(-9.41deg);
 }
 
 .add-a-spot label {
