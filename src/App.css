@@ -137,13 +137,13 @@ body {
 
 .cafe {
   background: #7F6C6B;
+  border: 1px solid #7F6C6B;
   border-radius: 8px;
   width: 300px;
-  padding: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .cafe .edit-btn {
@@ -162,17 +162,21 @@ body {
 
 .cafe h2 {
   font-family: 'Dancing Script', cursive;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  background: #FBFBFB;
   font-weight: 700;
   color: #70A37F;
   font-size: 28px;
   margin: 0;
-  padding: 0;
+  padding: 12px 0;
 }
 
 .cafe .notes {
   display: flex;
   gap: 8px;
   flex-direction: row;
+  padding: 0 20px;
 }
 
 .cafe .notes p {
@@ -188,6 +192,7 @@ body {
   text-decoration: none;
   text-align: left;
   color: #79B473;
+  padding: 0 20px 12px 20px;
 }
 
 @keyframes overlayShow {

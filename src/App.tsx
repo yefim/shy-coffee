@@ -5,7 +5,7 @@ import './App.css'
 import { createClient } from '@supabase/supabase-js'
 import * as Dialog from '@radix-ui/react-dialog';
 import { sample } from 'lodash';
-import { LoadingOutlined, EditOutlined, PushpinFilled } from '@ant-design/icons';
+import { LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import { flushSync } from 'react-dom';
 
 const supabaseUrl = 'https://nlmvouryycplqrhwjnxe.supabase.co'
@@ -208,7 +208,7 @@ function getPlaceholder(): string {
 function Cafe({ cafe, onClick }: { cafe: Cafe, onClick: () => void }) {
   return (
     <div className="cafe">
-      <button className="edit-btn" type="button" onClick={onClick}><EditOutlined /></button>
+      <button className="edit-btn" type="button" onClick={onClick}>✍️</button>
       <h2>{cafe.name}</h2>
       {cafe.notes && <div className="notes"><span>📝</span><p>{cafe.notes}</p></div>}
       <a className="location-link" target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.address)}`}>📍 Take me there</a>
