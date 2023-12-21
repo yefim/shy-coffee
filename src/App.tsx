@@ -210,7 +210,7 @@ function getPlaceholder(): string {
 }
 
 function Cafe({ cafe, onClick }: { cafe: Cafe, onClick: () => void }) {
-  const prettyAddress = (cafe.address.split(',').at(0) || '').replace(/^\d+/, '').trim();
+  const prettyAddress = (cafe.address.split(',').at(0) || '').replace(/^\d+\w?\s/, '').trim();
 
   return (
     <div className="cafe">
