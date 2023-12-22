@@ -107,7 +107,12 @@ function App() {
         .insert(cafe)
         .select();
 
-      if (error == null && !!data) {
+      if (error) {
+        alert(
+          `${user} is not allowed to update Shy.coffee. This incident will be reported.`,
+        );
+        setStatus("idle");
+      } else if (data) {
         const newCafe: Cafe = {
           id: data[0].id,
           name: data[0].name,
@@ -137,7 +142,12 @@ function App() {
         .eq("id", id)
         .select();
 
-      if (error == null && !!data) {
+      if (error) {
+        alert(
+          `${user} is not allowed to update Shy.coffee. This incident will be reported.`,
+        );
+        setStatus("idle");
+      } else if (data) {
         const updatedCafe: Cafe = {
           id: data[0].id,
           name: data[0].name,
