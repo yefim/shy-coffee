@@ -269,6 +269,7 @@ function App() {
                 onClick={() => {
                   supabase.auth.signInWithOAuth({
                     provider: "google",
+                    options: { redirectTo: "https://shy.coffee" },
                   });
                 }}
                 type="button"
