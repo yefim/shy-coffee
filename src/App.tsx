@@ -276,6 +276,7 @@ function App() {
               </>
             ) : (
               <button
+                className="login-with-google-btn"
                 onClick={() => {
                   supabase.auth.signInWithOAuth({
                     provider: "google",
@@ -283,7 +284,7 @@ function App() {
                 }}
                 type="button"
               >
-                Sign in with Google to add or update
+                Sign in with Google 👀
               </button>
             )}
           </Dialog.Content>

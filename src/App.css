@@ -10,18 +10,17 @@ html {
 
 html,
 body {
-  background: #FBFBFB;
+  background: #fbfbfb;
 }
 
 .heading-1 {
-  font-family: 'Dancing Script', cursive;
-  color: #70A37F;
+  font-family: "Dancing Script", cursive;
+  color: #70a37f;
   font-size: 32px;
   max-width: 480px;
   margin: 0 auto 20px auto;
   text-wrap: balance;
 }
-
 
 #root {
   max-width: 1280px;
@@ -38,8 +37,10 @@ body {
 }
 
 .DialogContent {
-  background-color: #FBFBFB;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  background-color: #fbfbfb;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   position: fixed;
   top: 20px;
   left: 50%;
@@ -57,16 +58,16 @@ body {
 
 .DialogContent h2 {
   text-align: center;
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 28px;
-  color: #70A37F;
+  color: #70a37f;
   margin: 0;
   padding: 0;
 }
 
 .add-a-spot-btn {
   font-size: 24px;
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   position: fixed;
   bottom: 20px;
   left: 12px;
@@ -77,19 +78,19 @@ body {
 
   width: 150px;
   height: 50px;
-  background-color: #C9ADA7;
-  color: #412C28;
+  background-color: #c9ada7;
+  color: #412c28;
   border-radius: 50%;
 }
 
 .add-a-spot-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 150px;
   height: 50px;
-  border: 1px solid #412C28;
+  border: 1px solid #412c28;
   border-radius: 50%;
   transform: rotate(-9.41deg);
 }
@@ -106,15 +107,15 @@ body {
 .add-a-spot input,
 .add-a-spot textarea,
 .add-a-spot button {
-  font-family: 'Libre Baskerville', serif;
-  color: #412C28;
+  font-family: "Libre Baskerville", serif;
+  color: #412c28;
   display: block;
   font-size: 20px;
 }
 
 .add-a-spot input,
 .add-a-spot textarea {
-  color: #7F6C6B;
+  color: #7f6c6b;
   width: 100%;
   font-size: 16px;
 }
@@ -125,24 +126,24 @@ body {
   margin: 0;
   padding: 0;
   appearance: none;
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
 
   position: relative;
   width: 140px;
   height: 40px;
-  background-color: #C9ADA7;
-  color: #412C28;
+  background-color: #c9ada7;
+  color: #412c28;
   border-radius: 50%;
 }
 
 .add-a-spot button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 140px;
   height: 40px;
-  border: 1px solid #412C28;
+  border: 1px solid #412c28;
   border-radius: 50%;
   transform: rotate(-9.41deg);
 }
@@ -152,7 +153,7 @@ body {
 }
 
 .add-a-spot .timestamp {
-  color: #79B473;
+  color: #79b473;
   font-size: 10px;
   display: block;
 }
@@ -176,8 +177,8 @@ body {
 }
 
 .cafe {
-  background: #7F6C6B;
-  border: 1px solid #7F6C6B;
+  background: #7f6c6b;
+  border: 1px solid #7f6c6b;
   border-radius: 8px;
   width: 300px;
   position: relative;
@@ -188,7 +189,7 @@ body {
 }
 
 .cafe .edit-btn {
-  color: #FBFBFB;
+  color: #fbfbfb;
   background: transparent;
   border: 0;
   padding: 0;
@@ -202,12 +203,12 @@ body {
 }
 
 .cafe h2 {
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   border-top-right-radius: 7px;
   border-top-left-radius: 7px;
-  background: #FBFBFB;
+  background: #fbfbfb;
   font-weight: 700;
-  color: #70A37F;
+  color: #70a37f;
   font-size: 28px;
   margin: 0;
   padding: 12px 0;
@@ -221,20 +222,65 @@ body {
 }
 
 .cafe .notes p {
-  font-family: 'Libre Baskerville', serif;
-  color: #FBFBFB;
+  font-family: "Libre Baskerville", serif;
+  color: #fbfbfb;
   text-align: left;
   margin: 0;
   text-wrap: pretty;
 }
 
 .cafe .location-link {
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Libre Baskerville", serif;
   font-size: 14px;
   text-decoration: none;
   text-align: left;
-  color: #79B473;
+  color: #79b473;
   padding: 0 0 12px 20px;
+}
+
+.login-with-google-btn {
+  margin: 0 auto;
+  display: block;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+
+  padding: 12px 16px 12px 42px;
+  border: none;
+  border-radius: 3px;
+  box-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.04),
+    0 1px 1px rgba(0, 0, 0, 0.25);
+
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+
+  &:hover {
+    box-shadow:
+      0 -1px 0 rgba(0, 0, 0, 0.04),
+      0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    background-color: #eeeeee;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow:
+      0 -1px 0 rgba(0, 0, 0, 0.04),
+      0 2px 4px rgba(0, 0, 0, 0.25),
+      0 0 0 3px #c8dafc;
+  }
 }
 
 @keyframes overlayShow {
