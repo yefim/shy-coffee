@@ -29,6 +29,26 @@ function App() {
   const [status, setStatus] = useState<"idle" | "pending">("idle");
   const [id, setId] = useState<number>();
   const placeholder = useRef<string>(getPlaceholder());
+  const [user, setUser] = useState<string>();
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event, session?.user.email);
+      const email = session?.user.email;
+
+      if (
+        (event === "SIGNED_IN" || event === "INITIAL_SESSION") &&
+        !!email &&
+        email !== user
+      ) {
+        setUser(email);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   function clearMe() {
     setName("");
@@ -67,8 +87,6 @@ function App() {
     }
     loadCafes();
   }, []);
-
-  console.log(JSON.stringify({ cafes }));
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -187,60 +205,77 @@ function App() {
         <Dialog.Portal>
           <Dialog.Overlay className="DialogOverlay" />
           <Dialog.Content className="DialogContent">
-            <h2>{editing == null ? "Add a spot" : `Edit ${editing.name}`}</h2>
-            <form
-              autoComplete="off"
-              className="add-a-spot"
-              method="post"
-              onSubmit={handleSubmit}
-            >
-              <label>
-                <span className="emoji">📇</span> Name
-                <input
-                  type="text"
+            {user ? (
+              <>
+                <h2>
+                  {editing == null ? "Add a spot" : `Edit ${editing.name}`}
+                </h2>
+                <form
                   autoComplete="off"
-                  placeholder="Coffee Deluxe"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </label>
-              <label>
-                <span className="emoji">📍</span> Address
-                <input
-                  type="text"
-                  autoComplete="off"
-                  placeholder="123 Bean St"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </label>
-              <label>
-                <span className="emoji">📝</span> Notes (optional)
-                <textarea
-                  rows={3}
-                  autoComplete="off"
-                  placeholder={placeholder.current || ""}
-                  onChange={(e) => setNotes(e.target.value)}
-                  value={notes}
-                />
-                {!!editing && (
-                  <span className="timestamp">
-                    Added {editing.createdAt.toLocaleDateString()}
-                  </span>
-                )}
-              </label>
-              <div className="action-buttons">
-                <button disabled={status === "pending"} type="submit">
-                  {status === "idle"
-                    ? id == null
-                      ? "Add"
-                      : "Update"
-                    : id == null
-                      ? "Adding..."
-                      : "Updating..."}
-                </button>
-              </div>
-            </form>
+                  className="add-a-spot"
+                  method="post"
+                  onSubmit={handleSubmit}
+                >
+                  <label>
+                    <span className="emoji">📇</span> Name
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      placeholder="Coffee Deluxe"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <span className="emoji">📍</span> Address
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      placeholder="123 Bean St"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <span className="emoji">📝</span> Notes (optional)
+                    <textarea
+                      rows={3}
+                      autoComplete="off"
+                      placeholder={placeholder.current || ""}
+                      onChange={(e) => setNotes(e.target.value)}
+                      value={notes}
+                    />
+                    {!!editing && (
+                      <span className="timestamp">
+                        Added {editing.createdAt.toLocaleDateString()}
+                      </span>
+                    )}
+                  </label>
+                  <div className="action-buttons">
+                    <button disabled={status === "pending"} type="submit">
+                      {status === "idle"
+                        ? id == null
+                          ? "Add"
+                          : "Update"
+                        : id == null
+                          ? "Adding..."
+                          : "Updating..."}
+                    </button>
+                  </div>
+                </form>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  supabase.auth.signInWithOAuth({
+                    provider: "google",
+                  });
+                }}
+                type="button"
+              >
+                Sign in with Google to add or update
+              </button>
+            )}
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
